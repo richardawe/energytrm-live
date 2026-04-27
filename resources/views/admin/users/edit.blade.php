@@ -203,6 +203,19 @@
                             <p class="text-muted small mb-0">No security groups available.</p>
                             @endforelse
                         </div>
+
+                        <h6>Trading Locations</h6>
+                        <div style="max-height:200px;overflow-y:auto;border:1px solid #dee2e6;border-radius:.375rem;padding:.5rem" class="mb-3">
+                            @forelse($tradingLocations as $loc)
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="trading_locations[]" value="{{ $loc->id }}" id="loc_{{ $loc->id }}"
+                                       {{ in_array($loc->id, old('trading_locations', $assignedLocations ?? [])) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="loc_{{ $loc->id }}">{{ $loc->name }}@if($loc->city) — {{ $loc->city }}@endif</label>
+                            </div>
+                            @empty
+                            <p class="text-muted small mb-0">No trading locations available.</p>
+                            @endforelse
+                        </div>
                     </div>
                 </div>
 

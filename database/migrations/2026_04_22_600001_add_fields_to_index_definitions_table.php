@@ -10,8 +10,7 @@ return new class extends Migration {
         Schema::table('index_definitions', function (Blueprint $table) {
             $table->string('index_subgroup', 100)->nullable()->after('index_group');
             $table->string('label', 100)->nullable()->after('index_name');
-            $table->string('format', 50)->nullable()->after('class')->comment('Price, DF, Avg Rate, Ratio');
-            $table->string('delivery_unit', 50)->nullable()->after('format');
+            $table->string('delivery_unit', 50)->nullable()->after('class');
             $table->string('date_sequence', 50)->nullable()->after('delivery_unit');
             $table->string('payment_convention', 50)->nullable()->after('date_sequence');
             $table->date('coverage_end_date')->nullable()->after('payment_convention');
@@ -35,7 +34,6 @@ return new class extends Migration {
             $table->dropColumn([
                 'index_subgroup',
                 'label',
-                'format',
                 'delivery_unit',
                 'date_sequence',
                 'payment_convention',
