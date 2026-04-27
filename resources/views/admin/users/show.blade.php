@@ -151,4 +151,26 @@
     </div>
     @endif
 
+    {{-- Assigned Trading Locations --}}
+    @if($user->tradingLocations->isNotEmpty())
+    <div class="card card-etrm mb-3" style="max-width:700px;">
+        <div class="card-header">Assigned Trading Locations</div>
+        <div class="card-body p-0">
+            <table class="table table-etrm table-hover mb-0">
+                <thead><tr><th>Name</th><th>City</th><th>Country</th><th>Timezone</th></tr></thead>
+                <tbody>
+                    @foreach($user->tradingLocations as $loc)
+                    <tr>
+                        <td>{{ $loc->name }}</td>
+                        <td>{{ $loc->city ?? '—' }}</td>
+                        <td>{{ $loc->country ?? '—' }}</td>
+                        <td class="text-muted">{{ $loc->timezone ?? '—' }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @endif
+
 </x-app-layout>

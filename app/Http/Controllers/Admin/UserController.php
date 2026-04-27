@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Party;
 use App\Models\Portfolio;
 use App\Models\SecurityGroup;
+use App\Models\TradingLocation;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -26,11 +27,12 @@ class UserController extends Controller
 
     public function create(): View
     {
-        $parties       = Party::businessUnits()->authorized()->orderBy('long_name')->get();
-        $portfolios    = Portfolio::orderBy('name')->get();
-        $securityGroups = SecurityGroup::orderBy('name')->get();
+        $parties         = Party::businessUnits()->authorized()->orderBy('long_name')->get();
+        $portfolios      = Portfolio::orderBy('name')->get();
+        $securityGroups  = SecurityGroup::orderBy('name')->get();
+        $tradingLocations = TradingLocation::where('is_active', true)->orderBy('name')->get();
 
-        return view('admin.users.create', compact('parties', 'portfolios', 'securityGroups'));
+        return view('admin.users.create', compact('parties', 'portfolios', 'securityGroups', 'tradingLocations'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -59,6 +61,8 @@ class UserController extends Controller
             'portfolios.*'           => ['exists:portfolios,id'],
             'security_groups'        => ['sometimes', 'array'],
             'security_groups.*'      => ['exists:security_groups,id'],
+            'trading_locations'      => ['sometimes', 'array'],
+            'trading_locations.*'    => ['exists:trading_locations,id'],
         ]);
 
         $data['password']               = Hash::make($data['password']);
@@ -69,6 +73,7 @@ class UserController extends Controller
         $user->businessUnits()->sync($request->input('business_units', []));
         $user->portfolios()->sync($request->input('portfolios', []));
         $user->securityGroups()->sync($request->input('security_groups', []));
+        $user->tradingLocations()->sync($request->input('trading_locations', []));
 
         return redirect()->route('admin.users.index')
             ->with('success', 'User created successfully.');
@@ -85,22 +90,26 @@ class UserController extends Controller
     {
         $user->load(['businessUnits', 'portfolios', 'securityGroups', 'tradingLocations']);
 
-        $parties        = Party::businessUnits()->authorized()->orderBy('long_name')->get();
-        $portfolios     = Portfolio::orderBy('name')->get();
-        $securityGroups = SecurityGroup::orderBy('name')->get();
+        $parties          = Party::businessUnits()->authorized()->orderBy('long_name')->get();
+        $portfolios       = Portfolio::orderBy('name')->get();
+        $securityGroups   = SecurityGroup::orderBy('name')->get();
+        $tradingLocations = TradingLocation::where('is_active', true)->orderBy('name')->get();
 
         $assignedBUs        = $user->businessUnits->pluck('id')->toArray();
         $assignedPortfolios = $user->portfolios->pluck('id')->toArray();
         $assignedSGs        = $user->securityGroups->pluck('id')->toArray();
+        $assignedLocations  = $user->tradingLocations->pluck('id')->toArray();
 
         return view('admin.users.edit', compact(
             'user',
             'parties',
             'portfolios',
             'securityGroups',
+            'tradingLocations',
             'assignedBUs',
             'assignedPortfolios',
-            'assignedSGs'
+            'assignedSGs',
+            'assignedLocations'
         ));
     }
 
@@ -129,6 +138,8 @@ class UserController extends Controller
             'portfolios.*'           => ['exists:portfolios,id'],
             'security_groups'        => ['sometimes', 'array'],
             'security_groups.*'      => ['exists:security_groups,id'],
+            'trading_locations'      => ['sometimes', 'array'],
+            'trading_locations.*'    => ['exists:trading_locations,id'],
         ]);
 
         $data['password_never_expires'] = $request->boolean('password_never_expires');
@@ -143,6 +154,7 @@ class UserController extends Controller
         $user->businessUnits()->sync($request->input('business_units', []));
         $user->portfolios()->sync($request->input('portfolios', []));
         $user->securityGroups()->sync($request->input('security_groups', []));
+        $user->tradingLocations()->sync($request->input('trading_locations', []));
 
         return redirect()->route('admin.users.index')
             ->with('success', 'User updated.');
