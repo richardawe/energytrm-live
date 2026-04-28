@@ -68,6 +68,17 @@
                     <div x-show="tab==='personnel'" style="display:none">
                         <div class="row g-3">
                             <div class="col-md-6">
+                                <label class="form-label fw-semibold">First Name</label>
+                                <input type="text" name="first_name" class="form-control @error('first_name') is-invalid @enderror" value="{{ old('first_name') }}" maxlength="100">
+                                @error('first_name')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Last Name</label>
+                                <input type="text" name="last_name" class="form-control @error('last_name') is-invalid @enderror" value="{{ old('last_name') }}" maxlength="100">
+                                @error('last_name')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+
+                            <div class="col-md-6">
                                 <label class="form-label fw-semibold">User Type</label>
                                 <select name="user_type" class="form-select @error('user_type') is-invalid @enderror">
                                     <option value="">— Select —</option>
@@ -209,6 +220,45 @@
                             </div>
                             @empty
                             <p class="text-muted small mb-0">No trading locations available.</p>
+                            @endforelse
+                        </div>
+
+                        <h6>Legal Entities</h6>
+                        <div style="max-height:200px;overflow-y:auto;border:1px solid #dee2e6;border-radius:.375rem;padding:.5rem" class="mb-3">
+                            @forelse($legalEntities as $le)
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="legal_entities[]" value="{{ $le->id }}" id="le_{{ $le->id }}"
+                                       {{ in_array($le->id, old('legal_entities', [])) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="le_{{ $le->id }}">{{ $le->long_name }}</label>
+                            </div>
+                            @empty
+                            <p class="text-muted small mb-0">No legal entities available.</p>
+                            @endforelse
+                        </div>
+
+                        <h6>Secured Indices</h6>
+                        <div style="max-height:200px;overflow-y:auto;border:1px solid #dee2e6;border-radius:.375rem;padding:.5rem" class="mb-3">
+                            @forelse($securedIndices as $idx)
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="secured_indices[]" value="{{ $idx->id }}" id="idx_{{ $idx->id }}"
+                                       {{ in_array($idx->id, old('secured_indices', [])) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="idx_{{ $idx->id }}">{{ $idx->index_name }}</label>
+                            </div>
+                            @empty
+                            <p class="text-muted small mb-0">No authorized indices available.</p>
+                            @endforelse
+                        </div>
+
+                        <h6>Functional Groups</h6>
+                        <div style="max-height:200px;overflow-y:auto;border:1px solid #dee2e6;border-radius:.375rem;padding:.5rem" class="mb-3">
+                            @forelse($functionalGroups as $fg)
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="functional_groups[]" value="{{ $fg->id }}" id="fg_{{ $fg->id }}"
+                                       {{ in_array($fg->id, old('functional_groups', [])) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="fg_{{ $fg->id }}">{{ $fg->name }}</label>
+                            </div>
+                            @empty
+                            <p class="text-muted small mb-0">No functional groups available.</p>
                             @endforelse
                         </div>
                     </div>

@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\FunctionalGroup;
+use App\Models\IndexDefinition;
+use App\Models\Party;
 
 class User extends Authenticatable
 {
@@ -17,6 +20,8 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
         'role',
@@ -73,5 +78,20 @@ class User extends Authenticatable
     public function tradingLocations(): BelongsToMany
     {
         return $this->belongsToMany(TradingLocation::class, 'user_trading_locations')->withPivot('is_default');
+    }
+
+    public function legalEntities(): BelongsToMany
+    {
+        return $this->belongsToMany(Party::class, 'user_legal_entities', 'user_id', 'party_id')->withPivot('is_default');
+    }
+
+    public function securedIndices(): BelongsToMany
+    {
+        return $this->belongsToMany(IndexDefinition::class, 'user_secured_indices');
+    }
+
+    public function functionalGroups(): BelongsToMany
+    {
+        return $this->belongsToMany(FunctionalGroup::class, 'user_functional_groups');
     }
 }
