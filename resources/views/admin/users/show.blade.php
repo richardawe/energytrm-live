@@ -61,6 +61,12 @@
         <div class="card-header">Personnel Details</div>
         <div class="card-body">
             <dl class="row mb-0">
+                <dt class="col-sm-4 text-muted">First Name</dt>
+                <dd class="col-sm-8">{{ $user->first_name ?? '—' }}</dd>
+
+                <dt class="col-sm-4 text-muted">Last Name</dt>
+                <dd class="col-sm-8">{{ $user->last_name ?? '—' }}</dd>
+
                 <dt class="col-sm-4 text-muted">Title</dt>
                 <dd class="col-sm-8">{{ $user->title ?? '—' }}</dd>
 
@@ -165,6 +171,68 @@
                         <td>{{ $loc->city ?? '—' }}</td>
                         <td>{{ $loc->country ?? '—' }}</td>
                         <td class="text-muted">{{ $loc->timezone ?? '—' }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @endif
+
+    {{-- Assigned Legal Entities --}}
+    @if($user->legalEntities->isNotEmpty())
+    <div class="card card-etrm mb-3" style="max-width:700px;">
+        <div class="card-header">Assigned Legal Entities</div>
+        <div class="card-body p-0">
+            <table class="table table-etrm table-hover mb-0">
+                <thead><tr><th>Long Name</th><th>Short Name</th><th class="text-center">Default</th></tr></thead>
+                <tbody>
+                    @foreach($user->legalEntities as $le)
+                    <tr>
+                        <td>{{ $le->long_name }}</td>
+                        <td>{{ $le->short_name }}</td>
+                        <td class="text-center">{{ $le->pivot->is_default ? 'Yes' : '—' }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @endif
+
+    {{-- Secured Indices --}}
+    @if($user->securedIndices->isNotEmpty())
+    <div class="card card-etrm mb-3" style="max-width:700px;">
+        <div class="card-header">Secured Indices</div>
+        <div class="card-body p-0">
+            <table class="table table-etrm table-hover mb-0">
+                <thead><tr><th>Index Name</th><th>Market</th><th>Class</th></tr></thead>
+                <tbody>
+                    @foreach($user->securedIndices as $idx)
+                    <tr>
+                        <td class="fw-semibold">{{ $idx->index_name }}</td>
+                        <td>{{ $idx->market }}</td>
+                        <td>{{ $idx->class }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @endif
+
+    {{-- Functional Groups --}}
+    @if($user->functionalGroups->isNotEmpty())
+    <div class="card card-etrm mb-3" style="max-width:700px;">
+        <div class="card-header">Functional Groups</div>
+        <div class="card-body p-0">
+            <table class="table table-etrm table-hover mb-0">
+                <thead><tr><th>Name</th><th>Description</th></tr></thead>
+                <tbody>
+                    @foreach($user->functionalGroups as $fg)
+                    <tr>
+                        <td class="fw-semibold">{{ $fg->name }}</td>
+                        <td class="text-muted">{{ $fg->description ?? '—' }}</td>
                     </tr>
                     @endforeach
                 </tbody>

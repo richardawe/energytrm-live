@@ -26,6 +26,7 @@ use App\Http\Controllers\Master\SettlementInstructionController;
 use App\Http\Controllers\Master\AccountController;
 use App\Http\Controllers\Master\SecurityGroupController;
 use App\Http\Controllers\Master\TradingLocationController;
+use App\Http\Controllers\Master\FunctionalGroupController;
 use App\Http\Controllers\Trades\TradeController;
 use App\Http\Controllers\Operations\ShipmentController;
 use App\Http\Controllers\Operations\InvoiceController;
@@ -94,6 +95,7 @@ Route::middleware(['auth'])->group(function () {
             Route::resource('accounts',               AccountController::class)->except(['index', 'show']);
             Route::resource('security-groups',        SecurityGroupController::class)->except(['index']);
             Route::resource('trading-locations',      TradingLocationController::class)->except(['index']);
+            Route::resource('functional-groups',      FunctionalGroupController::class)->except(['index', 'show']);
             // Party nested resources — write routes before wildcards
             Route::post('parties/{party}/addresses',               [PartyAddressController::class, 'store'])->name('parties.addresses.store');
             Route::get('parties/{party}/addresses/create',         [PartyAddressController::class, 'create'])->name('parties.addresses.create');
@@ -147,6 +149,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('accounts',               AccountController::class)->only(['index', 'show']);
         Route::resource('security-groups',        SecurityGroupController::class)->only(['index']);
         Route::resource('trading-locations',      TradingLocationController::class)->only(['index']);
+        Route::resource('functional-groups',      FunctionalGroupController::class)->only(['index']);
     });
 
     // ── Physical Trades (Phase 2) ─────────────────────────────────────────────

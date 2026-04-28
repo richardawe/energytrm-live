@@ -27,6 +27,7 @@
             ['title'=>'Accounts',               'route'=>'master.accounts.index',               'icon'=>'💳', 'desc'=>'Nostro, Vostro, margin accounts'],
             ['title'=>'Security Groups',        'route'=>'master.security-groups.index',        'icon'=>'🔐', 'desc'=>'User access and permission groups'],
             ['title'=>'Trading Locations',      'route'=>'master.trading-locations.index',      'icon'=>'📍', 'desc'=>'Office and trading desk locations'],
+            ['title'=>'Functional Groups',      'route'=>'master.functional-groups.index',      'icon'=>'👥', 'desc'=>'Personnel functional group assignments'],
         ];
         @endphp
 
