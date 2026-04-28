@@ -5,8 +5,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class IndexGridPoint extends Model
 {
-    protected $fillable = ['index_id', 'price_date', 'price', 'entered_by'];
-    protected $casts = ['price_date' => 'date', 'price' => 'decimal:6'];
+    protected $fillable = [
+        'index_id', 'price_date', 'price', 'entered_by',
+        'grid_point_label', 'instrument_category', 'priority_level',
+        'start_date', 'end_date', 'start_time', 'end_time',
+        'delta_shift', 'sensitivity',
+    ];
+    protected $casts = [
+        'price_date'  => 'date',
+        'start_date'  => 'date',
+        'end_date'    => 'date',
+        'price'       => 'decimal:6',
+        'delta_shift' => 'decimal:6',
+    ];
 
     public function index(): BelongsTo
     {

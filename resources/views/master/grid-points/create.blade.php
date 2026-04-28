@@ -49,6 +49,16 @@
     </div>
 
     <div class="col-md-3">
+        <label class="form-label fw-semibold">Start Date</label>
+        <input type="date" name="start_date" class="form-control @error('start_date') is-invalid @enderror" value="{{ old('start_date') }}">
+        @error('start_date')<div class="invalid-feedback">{{ $message }}</div>@enderror
+    </div>
+    <div class="col-md-3">
+        <label class="form-label fw-semibold">End Date</label>
+        <input type="date" name="end_date" class="form-control @error('end_date') is-invalid @enderror" value="{{ old('end_date') }}">
+        @error('end_date')<div class="invalid-feedback">{{ $message }}</div>@enderror
+    </div>
+    <div class="col-md-3">
         <label class="form-label fw-semibold">Start Time</label>
         <input type="time" name="start_time" class="form-control @error('start_time') is-invalid @enderror" value="{{ old('start_time') }}">
         @error('start_time')<div class="invalid-feedback">{{ $message }}</div>@enderror
