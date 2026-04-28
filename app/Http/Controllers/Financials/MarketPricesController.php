@@ -12,7 +12,7 @@ class MarketPricesController extends Controller
     public function index()
     {
         $indices = IndexDefinition::with('latestPrice', 'baseCurrency')
-            ->where('status', 'Authorized')
+            ->where('rec_status', 'Authorized')
             ->orderBy('index_name')
             ->get();
 
