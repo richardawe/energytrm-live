@@ -26,7 +26,7 @@
                                 onchange="document.getElementById('quick-price-form').action='/financials/market-prices/'+this.value">
                             <option value="">— Select Index —</option>
                             @foreach($indices as $idx)
-                            <option value="{{ $idx->id }}">{{ $idx->index_name }} ({{ $idx->baseCurrency->code }})</option>
+                            <option value="{{ $idx->id }}">{{ $idx->index_name }}@if($idx->baseCurrency) ({{ $idx->baseCurrency->code }})@endif</option>
                             @endforeach
                         </select>
                     </div>
