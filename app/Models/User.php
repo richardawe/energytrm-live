@@ -87,7 +87,7 @@ class User extends Authenticatable
 
     public function securedIndices(): BelongsToMany
     {
-        return $this->belongsToMany(IndexDefinition::class, 'user_secured_indices');
+        return $this->belongsToMany(IndexDefinition::class, 'user_secured_indices', 'user_id', 'index_id');
     }
 
     public function functionalGroups(): BelongsToMany
