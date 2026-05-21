@@ -185,7 +185,7 @@
                         <div class="col-md-3 fw-semibold">{{ $trade->contract_code }}</div>
 
                         <div class="col-md-3 text-muted">Expiry Date</div>
-                        <div class="col-md-3">{{ $trade->expiry_date->format('d-M-Y') }}</div>
+                        <div class="col-md-3">{{ $trade->expiry_date?->format('d-M-Y') ?? '—' }}</div>
                         <div class="col-md-3 text-muted">Contracts</div>
                         <div class="col-md-3 fw-semibold">{{ number_format($trade->num_contracts) }}</div>
 
@@ -243,7 +243,7 @@
                         <div class="col-md-3 text-muted">Strike Price</div>
                         <div class="col-md-3 fw-semibold">{{ $trade->strike_price }}</div>
                         <div class="col-md-3 text-muted">Expiry Date</div>
-                        <div class="col-md-3">{{ $trade->option_expiry_date->format('d-M-Y') }}</div>
+                        <div class="col-md-3">{{ $trade->option_expiry_date?->format('d-M-Y') ?? '—' }}</div>
 
                         <div class="col-md-3 text-muted">Premium</div>
                         <div class="col-md-3">{{ $trade->premium }}</div>
@@ -451,14 +451,14 @@
                 <div class="card-body" style="font-size:.85rem;">
                     <div class="row g-2">
                         <div class="col-5 text-muted">Created by</div>
-                        <div class="col-7">{{ $trade->createdBy->name }}</div>
+                        <div class="col-7">{{ $trade->createdBy?->name ?? '—' }}</div>
                         <div class="col-5 text-muted">Created at</div>
                         <div class="col-7">{{ $trade->created_at->format('d-M-Y H:i') }}</div>
                         @if($trade->validatedBy)
                         <div class="col-5 text-muted">Validated by</div>
                         <div class="col-7">{{ $trade->validatedBy->name }}</div>
                         <div class="col-5 text-muted">Validated at</div>
-                        <div class="col-7">{{ $trade->validated_at->format('d-M-Y H:i') }}</div>
+                        <div class="col-7">{{ $trade->validated_at?->format('d-M-Y H:i') ?? '—' }}</div>
                         @endif
                         <div class="col-5 text-muted">Last updated</div>
                         <div class="col-7">{{ $trade->updated_at->format('d-M-Y H:i') }}</div>
