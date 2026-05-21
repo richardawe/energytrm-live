@@ -12,6 +12,7 @@ use App\Models\TradingLocation;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -194,7 +195,7 @@ class UserController extends Controller
 
     public function destroy(User $user): RedirectResponse
     {
-        $this->authorize('delete', $user);
+        Gate::authorize('delete', $user);
 
         $user->delete();
 
