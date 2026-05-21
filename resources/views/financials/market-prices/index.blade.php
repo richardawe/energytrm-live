@@ -73,7 +73,7 @@
                         <td class="fw-semibold">{{ $idx->index_name }}</td>
                         <td>{{ $idx->market }}</td>
                         <td>{{ $idx->class }}</td>
-                        <td>{{ $idx->baseCurrency->code }}</td>
+                        <td>{{ $idx->baseCurrency?->code ?? '—' }}</td>
                         <td class="text-end fw-semibold">
                             {{ $idx->latestPrice ? number_format($idx->latestPrice->price, 4) : '—' }}
                         </td>
